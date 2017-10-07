@@ -2,4 +2,4 @@
 
 
 
-[![Automation Lab Topology](Lab.png?raw=true "Automation Lab Topology")]
+![Automation Lab Topology](Lab.png?raw=true "Automation Lab Topology")

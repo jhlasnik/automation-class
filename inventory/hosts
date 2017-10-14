@@ -1,0 +1,14 @@
+
+[core]
+lp1.autolab.local ansible_user=admin ansible_ssh_pass=N0t4UrEyez!
+lp2.autolab.local ansible_user=admin ansible_ssh_pass=N0t4UrEyez!
+lp3.autolab.local ansible_user=admin ansible_ssh_pass=N0t4UrEyez!
+lp4.autolab.local ansible_user=admin ansible_ssh_pass=N0t4UrEyez!
+
+[edge]
+lpe1.autolab.local ansible_user=admin ansible_ssh_pass=N0t4UrEyez!
+lpe2.autolab.local ansible_user=admin ansible_ssh_pass=N0t4UrEyez!
+
+[customer]
+
+

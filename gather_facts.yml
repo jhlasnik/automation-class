@@ -10,9 +10,13 @@
         password: "{{ansible_ssh_pass}}"
         timeout: 300    
     tasks:
-    - name: collect default set of facts and configuration
-      junos_facts:
-        gather_subset: all    
+    - name: Check if the VLAN exists in a VPLS instance
+      junos_rpc:
+        provider: "{{provider}}"
+#        output: json
+        rpc: get-ospf-neighbor-information
+#        args: 
+#          instance: VPLS{{vlan_id}}
       register: results
 
     - debug: msg="{{results.ansible_facts}}"

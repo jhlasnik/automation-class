@@ -1,6 +1,6 @@
 ---
   - name: Gather information from devices on the network
-    hosts: all
+    hosts: lp1.autolab.local 
     connection: local
     gather_facts: no
     vars:

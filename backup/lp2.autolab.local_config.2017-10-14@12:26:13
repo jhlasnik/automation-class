@@ -1,0 +1,133 @@
+## Last changed: 2017-10-11 02:27:09 UTC
+version 14.1R1.10;
+system {
+    host-name LP2;
+    root-authentication {
+        encrypted-password "$5$/NNr3./J$Lophsxos3EXgdRMyVr/brpzDaY9zKmF/MwExpf3xNY5";
+    }
+    login {
+        user admin {
+            uid 2000;
+            class super-user;
+            authentication {
+                encrypted-password "$1$rRaEBKUP$VN2mj6aCqLweQZSTVjUhx/";
+            }
+        }
+    }
+    services {
+        ssh;
+        netconf {
+            ssh;
+        }
+    }
+    syslog {
+        user * {
+            any emergency;
+            match "!(.*Scheduler Oinker*.|.*Frame 0*.|.*ms without yielding*.)";
+        }
+        file messages {
+            any notice;
+            authorization info;
+            match "!(.*Scheduler Oinker*.|.*Frame 0*.|.*ms without yielding*.)";
+        }
+        file interactive-commands {
+            interactive-commands any;
+        }
+    }
+}
+chassis {
+    network-services enhanced-ip;
+}
+interfaces {
+    ge-0/0/0 {
+        description "em2.LPE1 - OSPF";
+        unit 0 {
+            family inet {
+                address 10.10.10.14/30;
+            }
+            family mpls;
+        }
+    }
+    ge-0/0/1 {
+        description "ge-0/0/1.LP1 - OSPF";
+        unit 0 {
+            family inet {
+                address 10.10.10.26/30;
+            }
+            family mpls;
+        }
+    }
+    ge-0/0/2 {
+        description "ge-0/0/2.LP4 - OSPF";
+        unit 0 {
+            family inet {
+                address 10.10.10.21/30;
+            }
+            family mpls;
+        }
+    }
+    lo0 {
+        unit 0 {
+            family inet {
+                address 10.10.10.2/32;
+            }
+        }
+    }
+}
+routing-options {
+    autonomous-system 65001;
+}
+protocols {
+    bgp {
+        advertise-inactive;
+        group backbone {
+            local-address 10.10.10.2;
+            family inet {
+                unicast;
+            }
+            family inet-vpn {
+                unicast;
+            }
+            family l2vpn {
+                signaling;
+            }
+            family evpn {
+                signaling;
+            }
+            export [ routes-direct routes-static ];
+            peer-as 65001;
+            neighbor 10.10.10.1;
+            neighbor 10.10.10.3;
+            neighbor 10.10.10.4;
+        }
+    }
+    ospf {
+        area 0.0.0.0 {
+            interface lo0.0 {
+                passive;
+            }
+            interface ge-0/0/0.0;
+            interface ge-0/0/1.0;
+            interface ge-0/0/2.0;
+        }
+    }
+    ldp {
+        interface ge-0/0/0.0;
+        interface ge-0/0/1.0;
+        interface ge-0/0/2.0;
+        interface lo0.0;
+    }
+    lldp {
+        interface all;
+    }
+}
+policy-options {
+    policy-statement routes-direct {
+        from protocol direct;
+        then accept;
+    }
+    policy-statement routes-static {
+        from protocol static;
+        then accept;
+    }
+}

@@ -1,0 +1,91 @@
+## Last changed: 2017-10-12 06:16:04 UTC
+version 12.1R1.9;
+system {
+    host-name LPE1;
+    root-authentication {
+        encrypted-password "$1$BUSLlftH$CUTRvZxnIK4wNJjIRqpQv1";
+    }
+    login {
+        user admin {
+            uid 2000;
+            class super-user;
+            authentication {
+                encrypted-password "$1$rRaEBKUP$VN2mj6aCqLweQZSTVjUhx/";
+            }
+        }
+    }
+    services {
+        ssh;
+        netconf {
+            ssh;
+        }
+    }
+    syslog {
+        user * {
+            any emergency;
+        }
+        file messages {
+            any notice;
+            authorization info;
+        }
+        file interactive-commands {
+            interactive-commands any;
+        }
+    }
+}
+interfaces {
+    em0 {
+        description "Management Network";
+        unit 0 {
+            family inet {
+                address 10.242.254.10/23;
+            }
+        }
+    }
+    em1 {
+        description ge-0/0/0.LP1;
+        unit 0 {
+            family inet {
+                address 10.10.10.9/30;
+            }
+        }
+    }
+    em2 {
+        description ge-0/0/0.LP2;
+        unit 0 {
+            family inet {
+                address 10.10.10.13/30;
+            }
+        }
+    }
+    lo0 {
+        unit 0 {
+            family inet {
+                address 10.10.10.255/32;
+            }
+        }
+    }
+}
+protocols {
+    ospf {
+        area 0.0.0.0 {
+            interface lo0.0 {
+                passive;
+            }
+            interface em1.0;
+            interface em2.0;
+            interface em0.0 {
+                passive;
+            }
+        }
+    }
+    ldp {
+        interface em0.0;
+        interface em1.0;
+        interface em2.0;
+        interface lo0.0;
+    }
+    lldp {
+        interface all;
+    }
+}

@@ -1,1 +1,0 @@
-# automation-class - getting started

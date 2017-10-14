@@ -1,0 +1,19 @@
+---
+  - name: Gather information from devices on the network
+    hosts: all
+    connection: local
+    gather_facts: no
+    vars:
+      provider:
+        host: "{{inventory_hostname}}"
+        username: "{{ansible_user}}"
+        password: "{{ansible_ssh_pass}}"
+        timeout: 300    
+    tasks:
+    - name: collect default set of facts and configuration
+      junos_facts:
+        gather_subset: config    
+      register: results
+
+    - debug: msg="{{results.ansible_facts}}"
+    

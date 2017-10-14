@@ -1,0 +1,16 @@
+---
+  - name: Backup Configurations - Juniper
+    hosts: all
+    connection: local
+    gather_facts: no
+    vars:
+      provider:
+        host: "{{inventory_hostname}}"
+        username: "{{ansible_user}}"
+        password: "{{ansible_ssh_pass}}"
+        timeout: 300    
+    tasks:
+      - name: Back up configurations
+        junos_config: 
+          backup: yes
+    

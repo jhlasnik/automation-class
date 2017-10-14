@@ -1,6 +1,6 @@
 ---
   - name: Gather information from devices on the network
-    hosts: lp1.autolab.local 
+    hosts: lpe1.autolab.local 
     connection: local
     gather_facts: no
     vars:
@@ -12,7 +12,7 @@
     tasks:
     - name: collect default set of facts and configuration
       junos_facts:
-        gather_subset: config    
+        gather_subset: all    
       register: results
 
     - debug: msg="{{results.ansible_facts}}"

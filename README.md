@@ -29,4 +29,14 @@ MPLS Backbone used to test various Service Provider level services and develop a
 * Python
 * JunOS PyEZ
 
-
+```shell
+[joseph.hlasnik@acm-dev-ansible01 automation-class]$ python -V
+Python 2.7.5
+[joseph.hlasnik@acm-dev-ansible01 automation-class]$ ansible --version
+ansible 2.4.0.0
+  config file = /home/joseph.hlasnik/automation-class/ansible.cfg
+  configured module search path = [u'/home/joseph.hlasnik/.ansible/plugins/modules', u'/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/lib/python2.7/site-packages/ansible
+  executable location = /usr/bin/ansible
+  python version = 2.7.5 (default, May  3 2017, 07:55:04) [GCC 4.8.5 20150623 (Red Hat 4.8.5-14)]
+```

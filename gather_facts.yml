@@ -1,6 +1,6 @@
 ---
   - name: Gather information from devices on the network
-    hosts: lpe1.autolab.local 
+    hosts: all 
     connection: local
     gather_facts: no
     vars:
@@ -13,11 +13,11 @@
     - name: Check if the VLAN exists in a VPLS instance
       junos_rpc:
         provider: "{{provider}}"
-#        output: json
+        output: json 
         rpc: get-ospf-neighbor-information
 #        args: 
 #          instance: VPLS{{vlan_id}}
       register: results
 
-    - debug: msg="{{results.ansible_facts}}"
+    - debug: msg="{{results}}"
     
